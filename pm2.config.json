@@ -1,0 +1,25 @@
+[
+    {
+        "name": "Check Cert Expire",
+        "script": "index.js",
+        "exec_mode": "cluster",
+        // Scheduled restart, only effective in Cluster mode, [minute] [hour] [day] [month] [day of week]
+        "cron_restart": "0 21 * * *", // Check every day at 21:00
+
+        "instances": 1, // Negative numbers represent the number of server CPU cores minus N
+        "watch": false,  // Restart if the file changes, used for debugging
+
+        "log_date_format": "", // The framework log comes with time, no need for pm2 to add time
+        "log_file": "logs/pm2/pm2.log",
+        "error_file": "logs/pm2/pm2-err.log",
+        "combine_logs": true, // Do not add pid after the log, note that processes with the same name will have their logs combined.
+
+        "max_memory_restart": "100M",
+
+        "env": { // Default environment
+            "INTERVAL": 6000,
+            "NODE_ENV": "production",
+            "DEBUG": "express"
+        }
+    }
+]
